@@ -4,6 +4,7 @@ import 'dotenv/config'
 import testRoutes from './routes/test.route'
 import usersRoutes from './routes/users.route'
 import authRoutes from './routes/auth.route'
+import myHotelsRoutes from './routes/myHotels.route'
 import cookieParser from 'cookie-parser'
 import { v2 as cloudinary } from 'cloudinary'
 
@@ -22,7 +23,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/api/v1/', testRoutes)
 app.use('/api/v1/auth/', authRoutes)
 app.use('/api/v1/users/', usersRoutes)
-app.use('/api/v1/my-hotels/', usersRoutes)
+app.use('/api/v1/my-hotels/', myHotelsRoutes)
 
 // Start the server
 app.listen(process.env.PORT, () => {

@@ -36,4 +36,23 @@ model User {
   firstName    String?
   lastName   String?
   profile Profile?
+  hotel Hotel?
+}
+
+model Hotel{
+  id      String      @id @default(cuid())
+  user  User   @relation(fields: [userId], references: [id])
+  userId String @unique
+  name String
+  city String
+  country String
+  description String
+  type String
+  adultCount Int
+  chidlCount Int
+  facilities String[]
+  pricePerNight Int
+  starRating Int
+  imageUrls String[]
+  lastUpdated DateTime
 }
