@@ -25,7 +25,7 @@ router.post(
 		body('pricePerNight')
 			.notEmpty()
 			.isNumeric()
-			.withMessage('Perce per night is required and must be a number'),
+			.withMessage('Price per night is required and must be a number'),
 		body('facilities')
 			.notEmpty()
 			.isArray()

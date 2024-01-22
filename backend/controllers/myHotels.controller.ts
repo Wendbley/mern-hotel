@@ -26,10 +26,12 @@ export const AddHotel = async (req: Request, res: Response) => {
 	const imageFiles = req.files as Express.Multer.File[]
 	try {
 		const newHotel: HotelType = req.body
-
+		console.log(imageFiles.length, newHotel)
+		
 		// 1. upload images to cloudinary
-		const uploadPromises = await uploadImagesToCloudinary(imageFiles)
+		const uploadPromises =  uploadImagesToCloudinary(imageFiles)
 		const imageUrls = await Promise.all(uploadPromises)
+		console.log(req.body)
 
 		// 2. if upload successful, add the URLs images, logged user and updated date to the new hotel
 		newHotel.imageUrls = imageUrls

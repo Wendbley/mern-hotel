@@ -1,5 +1,6 @@
 import { RegisterFormData } from '../pages/Register'
 import { LoginFormData } from '../pages/Login'
+import { HotelFormData } from '../forms/ManageHotelForm/ManageHotelForm'
 
 /**
  *
@@ -81,4 +82,27 @@ export const validateToken = async () => {
 		throw new Error('Token invalid')
 	}
 	return response.json()
+}
+
+
+// Hotels
+export const addHotel = async (formData: HotelFormData) => {
+	
+	const response = await fetch(
+		`${import.meta.env.VITE_API_BASE_URL}/my-hotels`,
+		{
+			method: 'POST',
+			credentials: 'include', // set cookies of the browser
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(formData),
+		}
+	)
+
+	const data = await response.json()
+	if (!response.ok) {
+		throw new Error(data.message)
+	}
+	return data
 }
