@@ -1,6 +1,5 @@
 import { RegisterFormData } from '../pages/Register'
 import { LoginFormData } from '../pages/Login'
-import { HotelFormData } from '../forms/ManageHotelForm/ManageHotelForm'
 
 /**
  *
@@ -86,23 +85,21 @@ export const validateToken = async () => {
 
 
 // Hotels
-export const addHotel = async (formData: HotelFormData) => {
-	
+export const addHotel = async (formData: FormData) => {
+	console.log(formData)
 	const response = await fetch(
 		`${import.meta.env.VITE_API_BASE_URL}/my-hotels`,
 		{
 			method: 'POST',
 			credentials: 'include', // set cookies of the browser
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(formData),
+			
+			body: formData,
 		}
 	)
 
-	const data = await response.json()
+	
 	if (!response.ok) {
-		throw new Error(data.message)
+		throw new Error('Failed to add hotel')
 	}
-	return data
+	return await response.json()
 }

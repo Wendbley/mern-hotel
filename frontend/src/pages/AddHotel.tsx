@@ -1,7 +1,5 @@
 import { useMutation } from 'react-query'
-import ManageHotelForm, {
-	HotelFormData,
-} from '../forms/ManageHotelForm/ManageHotelForm'
+import ManageHotelForm from '../forms/ManageHotelForm/ManageHotelForm'
 import * as apiClient from '../api/api-client'
 import { useAppContext } from '../contexts/AppContext'
 
@@ -9,8 +7,8 @@ const AddHotel = () => {
 	const { showToast } = useAppContext()
 
 	const { mutate, isLoading } = useMutation(apiClient.addHotel, {
-		onSuccess: async () => {
-			showToast({ message: 'Hotel Saved!', type: 'SUCCESS' })
+		onSuccess: async (res) => {
+			showToast({ message: res.message, type: 'SUCCESS' })
 			// <Navigate to='/login' replace={true}
 		},
 		onError: () => {
@@ -18,7 +16,7 @@ const AddHotel = () => {
 		},
 	})
 
-	const onSave = (data: HotelFormData) => {
+	const onSave = (data: FormData) => {
 		mutate(data)
 	}
 

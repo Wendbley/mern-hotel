@@ -14,6 +14,7 @@ const HotelDetails = () => {
 			<input
 				type='text'
 				placeholder='Enter your name'
+				defaultValue={'Susan'}
 				className='cursor-pointer bg-slate-100 p-3  rounded-lg'
 				{...register('name', { required: 'This field is required' })}
 			/>
@@ -24,12 +25,14 @@ const HotelDetails = () => {
 				<input
 					type='text'
 					placeholder='Enter your city'
+					defaultValue={'Cape Town'}
 					className='flex-1 cursor-pointer bg-slate-100 p-3  rounded-lg'
 					{...register('city', { required: 'This field is required' })}
 				/>
 				<input
 					type='text'
 					placeholder='Enter country'
+					defaultValue={'South Africa'}
 					className='flex-1 cursor-pointer bg-slate-100 p-3  rounded-lg'
 					{...register('country', { required: 'This field is required' })}
 				/>
@@ -43,6 +46,7 @@ const HotelDetails = () => {
 			<textarea
 				rows={5}
 				placeholder='Description'
+				defaultValue={'2 Bedrooms for 2 people'}
 				className='cursor-pointer bg-slate-100 p-3  rounded-lg'
 				{...register('description', { required: 'This field is required' })}
 			/>
@@ -56,6 +60,7 @@ const HotelDetails = () => {
 					<input
 						type='text'
 						placeholder='Price per Night'
+						defaultValue={'100'}
 						className='cursor-pointer bg-slate-100 p-3  rounded-lg'
 						{...register('pricePerNight', {
 							required: 'This field is required',
@@ -75,7 +80,9 @@ const HotelDetails = () => {
 						})}>
 						<option>Star Rating</option>
 						{[1, 2, 3, 4, 5].map((num, i) => (
-							<option  key={i} value={num}>{num}</option>
+							<option key={i} value={num}>
+								{num}
+							</option>
 						))}
 					</select>
 					{errors?.starRating && (

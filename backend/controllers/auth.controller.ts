@@ -30,7 +30,7 @@ export const VerifyToken = async (
 			message: 'Unauthorized',
 		})
 	}
-	try {
+	try { 
 		const decoded = jwt.verify(token, process.env.JWT_SECRET as string)
 		req.userId = (decoded as JwtPayload).userId
 		next()

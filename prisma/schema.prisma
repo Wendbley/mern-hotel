@@ -49,7 +49,7 @@ model Hotel{
   description String
   type String
   adultCount Int
-  chidlCount Int
+  childCount Int
   facilities String[]
   pricePerNight Int
   starRating Int

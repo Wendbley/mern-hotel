@@ -4,17 +4,20 @@ import { HotelType } from '../types'
 import { CreateHotel } from '../database/hotel.utils'
 
 /**
- * 
- * @param imageFiles 
- * @returns 
+ *
+ * @param imageFiles
+ * @returns
  */
-const uploadImagesToCloudinary = (imageFiles: Express.Multer.File[]) => {
-	return imageFiles.map(async (image) => {
+async function uploadImagesToCloudinary(imageFiles: Express.Multer.File[]) {
+	const uploadPromises = imageFiles.map(async (image) => {
 		const b64 = Buffer.from(image.buffer).toString('base64')
 		let dataURI = 'data:' + image.mimetype + ';base64,' + b64
 		const res = await cloudinary.v2.uploader.upload(dataURI)
 		return res.url
 	})
+
+	const imageUrls = await Promise.all(uploadPromises)
+	return imageUrls
 }
 
 /**
@@ -24,14 +27,13 @@ const uploadImagesToCloudinary = (imageFiles: Express.Multer.File[]) => {
  */
 export const AddHotel = async (req: Request, res: Response) => {
 	const imageFiles = req.files as Express.Multer.File[]
+
 	try {
-		const newHotel: HotelType = req.body
-		console.log(imageFiles.length, newHotel)
-		
+		// create new hotel and convert pricePerNight, startRating, adultCount, childCount to number
+		const newHotel: HotelType = {...req.body, pricePerNight: Number(req.body.pricePerNight), starRating: Number(req.body.starRating), adultCount: Number(req.body.adultCount), childCount: Number(req.body.childCount)}
+
 		// 1. upload images to cloudinary
-		const uploadPromises =  uploadImagesToCloudinary(imageFiles)
-		const imageUrls = await Promise.all(uploadPromises)
-		console.log(req.body)
+		const imageUrls = await uploadImagesToCloudinary(imageFiles)
 
 		// 2. if upload successful, add the URLs images, logged user and updated date to the new hotel
 		newHotel.imageUrls = imageUrls

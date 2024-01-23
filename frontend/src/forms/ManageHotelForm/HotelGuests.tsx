@@ -16,8 +16,9 @@ const HotelGuests = () => {
 					<input
 						type='number'
 						id='adultCount'
-						min={0}
+						min={1}
 						placeholder='2'
+						defaultValue={1}
 						className=' cursor-pointer bg-slate-100 p-3  rounded-lg'
 						{...register('adultCount', { required: 'This field is required' })}
 					/>
@@ -28,11 +29,12 @@ const HotelGuests = () => {
 					)}
 				</div>
 				<div className='flex-1 flex flex-col'>
-					<label htmlFor='adultCount'>Children</label>
+					<label htmlFor='childCount'>Children</label>
 					<input
 						type='number'
 						id='childCount'
 						min={0}
+						defaultValue={0}
 						placeholder='2'
 						className=' cursor-pointer bg-slate-100 p-3  rounded-lg'
 						{...register('childCount', { required: 'This field is required' })}

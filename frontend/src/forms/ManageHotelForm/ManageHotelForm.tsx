@@ -14,13 +14,26 @@ export type HotelFormData = {
 	pricePerNight: number
 	starRating: number
 	facilities: string[]
-	imageFiles: FileList
+	imageFiles: File[]
 	imageUrls: string[]
 	adultCount: number
 	childCount: number
 }
+export type Hotel_FormData = {
+	name: string
+	city: string
+	country: string
+	description: string
+	type: string
+	pricePerNight: number
+	starRating: number
+	facilities: string[]
+	imageFiles: File[]
+	adultCount: number
+	childCount: number
+}
 type Props = {
-	onSave: (data: HotelFormData) => void
+	onSave: (data: FormData) => void
 	isLoading: boolean
 }
 
@@ -29,13 +42,31 @@ const ManageHotelForm = ({ onSave, isLoading }: Props) => {
 	const { handleSubmit } = formMethods
 
 	const onSubmit = handleSubmit((data: HotelFormData) => {
-		if (data.imageFiles) {
-			Array(data.imageFiles).forEach((imageFile,i) => {
-				data.imageUrls[i] = (imageFile.item(i)!).toString()
-				console.log(data.imageUrls[i])
+		const formData = new FormData()
+		formData.append('name', data.name)
+		formData.append('city', data.city)
+		formData.append('country', data.country)
+		formData.append('description', data.description)
+		formData.append('type', data.type)
+		formData.append('pricePerNight', data.pricePerNight.toString())
+		formData.append('starRating', data.starRating.toString())
+		formData.append('adultCount', data.adultCount.toString())
+		formData.append('childCount', data.childCount.toString())
+
+		data.facilities.forEach((facility, index) => {
+			formData.append(`facilities[${index}]`, facility)
+		})
+
+		if (data.imageUrls) {
+			data.imageUrls.forEach((url, index) => {
+				formData.append(`imageUrls[${index}]`, url)
 			})
 		}
-		onSave(data)
+
+		Array.from(data.imageFiles).forEach((imageFile) => {
+			formData.append(`imageFiles`, imageFile)
+		})
+		onSave(formData)
 	})
 
 	return (
