@@ -1,8 +1,8 @@
 import { Link, NavLink } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import Hero from './Hero'
-import { useAppContext } from '../contexts/AppContext'
 import SingOut from './SingOut'
+import { useAppContext } from '../hooks/useAppContext'
 
 const Navbar = () => {
 	const { isLoggedIn } = useAppContext()

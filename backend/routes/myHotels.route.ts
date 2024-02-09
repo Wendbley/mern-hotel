@@ -1,6 +1,6 @@
 import express from 'express'
 import multer from 'multer'
-import { AddHotel } from '../controllers/myHotels.controller'
+import { AddHotel, GetMyHotel, GetMyHotels, UpdateMyHotel } from '../controllers/myHotels.controller'
 import { VerifyToken } from '../controllers/auth.controller'
 import { body } from 'express-validator'
 
@@ -13,6 +13,9 @@ const upload = multer({
 	},
 })
 
+/**
+ * @api {post} /api/v1/my-hotels --> Add Hotel
+ */
 router.post(
 	'/',
 	VerifyToken,
@@ -34,4 +37,26 @@ router.post(
 	upload.array('imageFiles', 6),
 	AddHotel
 )
+
+
+/**
+ * @api {get} /api/v1/my-hotels/:id --> Get My Hotels
+ */
+router.get('/', VerifyToken, GetMyHotels)
+
+
+/**
+ * @api {get} /api/v1/my-hotels/:id --> Get My Hotels
+ */
+router.get('/:hotelId', VerifyToken, GetMyHotel)
+
+
+/**
+ * @api {update} /api/v1/my-hotels/:id --> Get My Hotels
+ */
+router.put('/:hotelId', VerifyToken, upload.array('imageFiles', 6), UpdateMyHotel)
+
+
+
+
 export default router

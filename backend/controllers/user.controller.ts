@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { CreateUser, GetUserByEmail } from '../database/user.utils'
+import { CreateUser, GetAllUsers, GetUserByEmail } from '../database/user.utils'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { validationResult } from 'express-validator'
@@ -59,5 +59,15 @@ export const Register = async (req: Request, res: Response) => {
 		res.status(200).json({ message: 'User registered successfully' })
 	} catch (error) {
 		res.status(500).send({ message: 'Internal server error' })
+	}
+}
+
+export const GetUsers = async(req: Request, res: Response) => {
+	try {
+		const users = await GetAllUsers()
+		return res.status(200).json({ users })
+	} catch (error) {
+		console.log(error)
+		return res.status(500).json({ message: 'Something went wrong' })
 	}
 }

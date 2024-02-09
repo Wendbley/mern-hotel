@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useState } from 'react'
+import { ReactNode, createContext, useState } from 'react'
 import Toast from '../components/Toast'
 import { useQuery } from 'react-query'
 import * as apiClient from '../api/api-client'
@@ -13,8 +13,14 @@ type AppContext = {
 	isLoggedIn: boolean
 }
 
-const AppContext = createContext<AppContext>({} as AppContext)
+export const AppContext = createContext<AppContext>({} as AppContext)
 
+
+/**
+ * 
+ * @param param0 
+ * @returns 
+ */
 export const AppContextProvider = ({ children }: { children: ReactNode }) => {
 	const [toast, setToast] = useState<ToastMessage>()
 	const { isError } = useQuery('validateToken', apiClient.validateToken, {
@@ -41,6 +47,3 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
 	)
 }
 
-export const useAppContext = () => {
-	return useContext(AppContext)
-}

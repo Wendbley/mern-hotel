@@ -3,7 +3,8 @@ import OAuth from '../components/OAuth'
 import { useForm } from 'react-hook-form'
 import { useMutation, useQueryClient } from 'react-query'
 import * as apiClient from '../api/api-client'
-import { useAppContext } from '../contexts/AppContext'
+import { useAppContext } from '../hooks/useAppContext'
+
 
 export type RegisterFormData = {
 	firstName: string

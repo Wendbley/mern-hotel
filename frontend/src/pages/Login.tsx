@@ -1,13 +1,9 @@
-// import { useDispatch, useSelector } from 'react-redux'
-// import { Form, Link, Navigate, useActionData } from 'react-router-dom'
-// import { loginFailure, loginSuccess } from '../features/auth/authSlice'
-// import { useEffect } from 'react'
 import { Form, Link, useNavigate } from 'react-router-dom'
 import OAuth from '../components/OAuth'
 import { useForm } from 'react-hook-form'
-import { useAppContext } from '../contexts/AppContext'
 import { useMutation, useQueryClient } from 'react-query'
 import * as apiClient from '../api/api-client'
+import { useAppContext } from '../hooks/useAppContext'
 // import OAuth from '../components/OAuth'
 
 export type LoginFormData = {
@@ -15,6 +11,11 @@ export type LoginFormData = {
 	password: string
 }
 
+
+/**
+ * 
+ * @returns 
+ */
 const Login = () => {
 	const { showToast } = useAppContext()
 	const queryClient = useQueryClient()
@@ -40,9 +41,6 @@ const Login = () => {
 	const onSubmit = handleSubmit((data) => {
 		mutation.mutate(data)
 	})
-	
-
-	
 
 	return (
 		<main className='flex-1 grid place-items-center bg-white'>

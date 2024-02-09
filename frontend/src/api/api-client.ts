@@ -1,5 +1,7 @@
 import { RegisterFormData } from '../pages/Register'
 import { LoginFormData } from '../pages/Login'
+import { HotelType } from '../types'
+
 
 /**
  *
@@ -68,8 +70,9 @@ export const logout = async () => {
 	return data
 }
 
-/***
- *
+/**
+ * 
+ * @returns 
  */
 export const validateToken = async () => {
 	const response = await fetch(
@@ -85,14 +88,18 @@ export const validateToken = async () => {
 
 
 // Hotels
+/**
+ * 
+ * @param formData 
+ * @returns 
+ */
 export const addHotel = async (formData: FormData) => {
-	console.log(formData)
+	
 	const response = await fetch(
 		`${import.meta.env.VITE_API_BASE_URL}/my-hotels`,
 		{
 			method: 'POST',
 			credentials: 'include', // set cookies of the browser
-			
 			body: formData,
 		}
 	)
@@ -101,5 +108,65 @@ export const addHotel = async (formData: FormData) => {
 	if (!response.ok) {
 		throw new Error('Failed to add hotel')
 	}
-	return await response.json()
+	return response.json()
+}
+// Hotels
+/**
+ * 
+ * @returns 
+ */
+export const fetchMyHotels = async (): Promise<HotelType[]> => {
+	const response = await fetch(
+		`${import.meta.env.VITE_API_BASE_URL}/my-hotels`,
+		{
+			credentials: 'include', // set cookies of the browser
+		}
+	)
+
+	if (!response.ok) {
+		throw new Error('Failed to fetch hotels')
+	}
+	return response.json()
+}
+
+
+/**
+ * 
+ * @param hotelId 
+ * @returns 
+ */
+export const fetchMyHotelById = async (hotelId: string): Promise<HotelType> => {
+	const response = await fetch(
+		`${import.meta.env.VITE_API_BASE_URL}/my-hotels/${hotelId}`,
+		{
+			credentials: 'include', // set cookies of the browser
+		}
+	)
+
+	if (!response.ok) {
+		throw new Error('Failed to fetch hotel')
+	}
+	return response.json()
+}
+
+/**
+ * 
+ * @param hotelId 
+ * @param formData 
+ * @returns 
+ */
+export const UpdateMyHotelById = async (  formData: FormData) => {
+	const response = await fetch(
+		`${import.meta.env.VITE_API_BASE_URL}/my-hotels/${formData.get('id')}`,
+		{
+			method: 'PUT',
+			credentials: 'include', // set cookies of the browser
+			body: formData,
+		}
+	)
+
+	if (!response.ok) {
+		throw new Error('Failed to update hotel')
+	}
+	return response.json()
 }

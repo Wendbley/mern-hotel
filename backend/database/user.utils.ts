@@ -41,3 +41,8 @@ export const GetUserById = async (id: string) => {
 	})
 	return user ? user : null
 }
+
+export const GetAllUsers = async () => {
+	const users = await db.user.findMany({})
+	return users
+}

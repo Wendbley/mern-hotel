@@ -5,8 +5,11 @@ import Error404 from './pages/Error404'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Main from './layout/Main'
-import { useAppContext } from './contexts/AppContext'
+
 import AddHotel from './pages/AddHotel'
+import MyHotels from './pages/MyHotels'
+import { useAppContext } from './hooks/useAppContext'
+import EditHotel from './pages/EditHotel'
 
 function App() {
 	const { isLoggedIn } = useAppContext()
@@ -25,6 +28,14 @@ function App() {
 				{
 					path: '/add-hotel',
 					element: isLoggedIn ? <AddHotel /> : <Main />,
+				},
+				{
+					path: '/my-hotels',
+					element: isLoggedIn ? <MyHotels /> : <Main />,
+				},
+				{
+					path: '/edit-hotel/:hotelId',
+					element: isLoggedIn ? <EditHotel /> : <Main />,
 				},
 				{
 					path: '/login',

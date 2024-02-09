@@ -4,6 +4,8 @@ import HotelTypes from './HotelTypes'
 import HotelFacilities from './HotelFacilities'
 import HotelGuests from './HotelGuests'
 import HotelImages from './HotelImages'
+import { useEffect } from 'react'
+import { HotelType } from '../../types'
 
 export type HotelFormData = {
 	name: string
@@ -33,16 +35,26 @@ export type Hotel_FormData = {
 	childCount: number
 }
 type Props = {
+	hotel?: HotelType
 	onSave: (data: FormData) => void
 	isLoading: boolean
 }
 
-const ManageHotelForm = ({ onSave, isLoading }: Props) => {
+const ManageHotelForm = ({ hotel, onSave, isLoading }: Props) => {
 	const formMethods = useForm<HotelFormData>() // form provider
-	const { handleSubmit } = formMethods
+	const { handleSubmit, reset } = formMethods
+
+	// repopulate the form
+	useEffect(() => {
+		reset(hotel)
+	}, [hotel, reset])
 
 	const onSubmit = handleSubmit((data: HotelFormData) => {
 		const formData = new FormData()
+
+		if (hotel) {
+			formData.append('id', hotel.id)
+		}
 		formData.append('name', data.name)
 		formData.append('city', data.city)
 		formData.append('country', data.country)

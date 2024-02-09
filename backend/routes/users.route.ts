@@ -1,5 +1,5 @@
 import express from 'express'
-import { Register } from '../controllers/user.controller'
+import { GetUsers, Register } from '../controllers/user.controller'
 import { check } from 'express-validator'
 
 const router = express.Router()
@@ -21,6 +21,9 @@ router.post(
 	],
 	Register
 )
+
+
+router.get('/', GetUsers)
 
 
 
