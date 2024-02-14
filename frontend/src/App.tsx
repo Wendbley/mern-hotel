@@ -10,6 +10,7 @@ import AddHotel from './pages/AddHotel'
 import MyHotels from './pages/MyHotels'
 import { useAppContext } from './hooks/useAppContext'
 import EditHotel from './pages/EditHotel'
+import Search from './pages/Search'
 
 function App() {
 	const { isLoggedIn } = useAppContext()
@@ -36,6 +37,10 @@ function App() {
 				{
 					path: '/edit-hotel/:hotelId',
 					element: isLoggedIn ? <EditHotel /> : <Main />,
+				},
+				{
+					path: '/search',
+					element: <Search />,
 				},
 				{
 					path: '/login',

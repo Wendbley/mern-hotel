@@ -62,7 +62,6 @@ const HotelImages = () => {
 					{...register('imageFiles', {
 						validate: (imageFiles) => {
 							const totalLength = imageFiles.length + (existingImages?.length || 0)
-							console.log(totalLength)
 
 							if (totalLength === 0) {
 								return 'At least one image should be added'

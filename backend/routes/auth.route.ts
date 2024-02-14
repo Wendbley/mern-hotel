@@ -5,7 +5,12 @@ import { check } from 'express-validator'
 
 const router = express.Router()
 
+/**
+ * @api {get} /api/v1/auth/validate-token --> Validate Token
+ */
 router.get('/validate-token', VerifyToken, Owership)
+
+
 /**
  * @api {post} /api/v1/auth/login --> Login User
  */

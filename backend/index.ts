@@ -5,10 +5,15 @@ import testRoutes from './routes/test.route'
 import usersRoutes from './routes/users.route'
 import authRoutes from './routes/auth.route'
 import myHotelsRoutes from './routes/myHotels.route'
+import hotelsRoutes from './routes/hotels.route'
 import cookieParser from 'cookie-parser'
 import { v2 as cloudinary } from 'cloudinary'
 import path from 'path'
 
+
+/**
+ * Initalize Cloudinary Storage
+ */
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
 	api_key: process.env.CLOUDINARY_API_KEY,
@@ -34,6 +39,8 @@ app.use('/api/v1/', testRoutes)
 app.use('/api/v1/auth/', authRoutes)
 app.use('/api/v1/users/', usersRoutes)
 app.use('/api/v1/my-hotels/', myHotelsRoutes)
+app.use('/api/v1/hotels/', hotelsRoutes)
+
 
 
 // Serve static files

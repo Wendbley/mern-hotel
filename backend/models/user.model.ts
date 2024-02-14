@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { UserType } from '../types'
+import { UserType } from '../shared'
 
 const userSchema = new Schema<UserType>({
 	email: { type: String, required: true, unique: true },

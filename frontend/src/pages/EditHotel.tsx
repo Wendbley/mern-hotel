@@ -30,6 +30,10 @@ const EditHotel = () => {
 		},
 	})
 
+	/**
+	 * 
+	 * @param data 
+	 */
 	const onSave = (data: FormData) => {
 		mutate(data)
 	}

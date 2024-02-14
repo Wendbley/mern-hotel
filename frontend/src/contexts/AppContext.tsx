@@ -13,7 +13,7 @@ type AppContext = {
 	isLoggedIn: boolean
 }
 
-export const AppContext = createContext<AppContext>({} as AppContext)
+export const AppContext = createContext<AppContext | undefined>(undefined)
 
 
 /**

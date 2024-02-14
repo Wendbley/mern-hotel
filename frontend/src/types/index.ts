@@ -14,3 +14,12 @@ export type HotelType = {
 	imageUrls: string[]
 	lastUpdated: Date
 }
+
+export type SearchParams = {
+	destination?: string
+	checkIn?: string
+	checkOut?: string
+	adultCount?: string
+	childCount?: string
+	page?: string
+}

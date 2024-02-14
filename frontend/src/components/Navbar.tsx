@@ -9,7 +9,7 @@ const Navbar = () => {
 	
 	
 	return (
-		<div className='container mx-auto pt-4'>
+		<div className='container mx-auto pt-4 bg-blue-900'>
 			<header className='flex items-center justify-between text-white'>
 				<h1 className='flex items-center gap-2'>
 					<Link to='/'>

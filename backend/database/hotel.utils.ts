@@ -1,6 +1,12 @@
-import { HotelType } from '../types'
+import { HotelType } from '../shared'
 import { db } from './db'
 
+/****************************************** Search Hotel ******************************************** */
+/**
+ *
+ * @param hotel
+ * @returns
+ */
 export const CreateHotel = async (hotel: any) => {
 	console.log(hotel)
 	const newHotel = await db.hotel.create({
@@ -9,8 +15,12 @@ export const CreateHotel = async (hotel: any) => {
 
 	return newHotel
 }
-
-export const GetAllHotels = async (userId: string) => {
+/**
+ *
+ * @param userId
+ * @returns
+ */
+export const GetAllMyHotels = async (userId: string) => {
 	const hotels = await db.hotel.findMany({
 		where: {
 			userId,
@@ -50,7 +60,14 @@ export const UpdateHotel = async (
 			id,
 			userId,
 		},
-		data: { ...hotel, },
+		data: { ...hotel },
 	})
 	return hotels
+}
+
+/****************************************** Search Hotel ******************************************** */
+export const GetAllHotels = async () => {
+	const hotels = await db.hotel.findMany({})
+	const total = await db.hotel.count()
+	return { hotels, total }
 }

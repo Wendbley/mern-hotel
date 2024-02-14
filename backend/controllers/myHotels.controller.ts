@@ -1,9 +1,10 @@
 import { Response, Request } from 'express'
 import cloudinary from 'cloudinary'
-import { HotelType } from '../types'
+import { HotelType } from '../shared'
 import {
 	CreateHotel,
 	GetAllHotels,
+	GetAllMyHotels,
 	GetHotel,
 	UpdateHotel,
 } from '../database/hotel.utils'
@@ -71,7 +72,7 @@ export const AddHotel = async (req: Request, res: Response) => {
  */
 export const GetMyHotels = async (req: Request, res: Response) => {
 	try {
-		const hotels = await GetAllHotels(req.userId)
+		const hotels = await GetAllMyHotels(req.userId)
 		return res.status(200).json({ hotels })
 	} catch (error) {
 		console.log(error)

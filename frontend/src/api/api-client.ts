@@ -1,7 +1,7 @@
 import { RegisterFormData } from '../pages/Register'
 import { LoginFormData } from '../pages/Login'
-import { HotelType } from '../types'
-
+import {  SearchParams } from '../types'
+import { SearchHotelType, HotelType } from '../../../backend/shared'
 
 /**
  *
@@ -71,8 +71,8 @@ export const logout = async () => {
 }
 
 /**
- * 
- * @returns 
+ *
+ * @returns
  */
 export const validateToken = async () => {
 	const response = await fetch(
@@ -86,15 +86,13 @@ export const validateToken = async () => {
 	return response.json()
 }
 
-
 // Hotels
 /**
- * 
- * @param formData 
- * @returns 
+ *
+ * @param formData
+ * @returns
  */
 export const addHotel = async (formData: FormData) => {
-	
 	const response = await fetch(
 		`${import.meta.env.VITE_API_BASE_URL}/my-hotels`,
 		{
@@ -104,7 +102,6 @@ export const addHotel = async (formData: FormData) => {
 		}
 	)
 
-	
 	if (!response.ok) {
 		throw new Error('Failed to add hotel')
 	}
@@ -112,8 +109,8 @@ export const addHotel = async (formData: FormData) => {
 }
 // Hotels
 /**
- * 
- * @returns 
+ *
+ * @returns
  */
 export const fetchMyHotels = async (): Promise<HotelType[]> => {
 	const response = await fetch(
@@ -129,11 +126,10 @@ export const fetchMyHotels = async (): Promise<HotelType[]> => {
 	return response.json()
 }
 
-
 /**
- * 
- * @param hotelId 
- * @returns 
+ *
+ * @param hotelId
+ * @returns
  */
 export const fetchMyHotelById = async (hotelId: string): Promise<HotelType> => {
 	const response = await fetch(
@@ -150,12 +146,12 @@ export const fetchMyHotelById = async (hotelId: string): Promise<HotelType> => {
 }
 
 /**
- * 
- * @param hotelId 
- * @param formData 
- * @returns 
+ *
+ * @param hotelId
+ * @param formData
+ * @returns
  */
-export const UpdateMyHotelById = async (  formData: FormData) => {
+export const UpdateMyHotelById = async (formData: FormData) => {
 	const response = await fetch(
 		`${import.meta.env.VITE_API_BASE_URL}/my-hotels/${formData.get('id')}`,
 		{
@@ -167,6 +163,30 @@ export const UpdateMyHotelById = async (  formData: FormData) => {
 
 	if (!response.ok) {
 		throw new Error('Failed to update hotel')
+	}
+	return response.json()
+}
+
+export const SearchHotels = async (searchParams: SearchParams): Promise<SearchHotelType> => {
+	const queryParams = new URLSearchParams(searchParams)
+	queryParams.append('destination', searchParams.destination || '')
+	queryParams.append('checkIn', searchParams.checkIn || '')
+	queryParams.append('checkOut', searchParams.checkOut || '')
+	queryParams.append('adulCount', searchParams.adultCount || '')
+	queryParams.append('childCount', searchParams.childCount || '')
+	queryParams.append('page', searchParams.page || '')
+
+	const response = await fetch(
+		`${import.meta.env.VITE_API_BASE_URL}/hotels/search?${queryParams.toString()}`,
+		{
+
+			credentials: 'include', // set cookies of the browser
+			
+		}
+	)
+
+	if (!response.ok) {
+		throw new Error('Failed to fetching hotel')
 	}
 	return response.json()
 }
